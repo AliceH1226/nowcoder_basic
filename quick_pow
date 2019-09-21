@@ -1,0 +1,23 @@
+//https://ac.nowcoder.com/acm/problem/blogs/50906
+//https://ac.nowcoder.com/acm/contest/996/A
+#include<stdio.h>
+typedef long long ll;
+
+int q_pow(int a,int b,int p)
+{
+    ll ans=1,res=a%p;//initialize ans,res
+    while(b)
+    {
+        if(b&1) ans=ans*res%p;//the current bit is 1, calculate it to ans
+        res=res*res%p;//nest bit to multiple;
+        b>>=1;//leave the rightest bit for the next while loop
+    }
+    return ans%p;//return ans
+}
+int main()
+{
+    int a,b,p;
+    scanf("%d%d%d",&a,&b,&p);
+    printf("%d\n",q_pow(a,b,p));
+    return 0;
+}
