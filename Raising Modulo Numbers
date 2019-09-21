@@ -1,0 +1,39 @@
+https://ac.nowcoder.com/acm/contest/996/B
+
+#include<stdio.h>
+#include<iostream>
+typedef long long ll;
+using namespace std;
+
+int q_pow(int a,int b,int p)
+{
+    //cout<<"a=="<<a<<endl;
+    //cout<<"b=="<<b<<endl;
+    ll ans=1,res=a%p;
+    while(b)
+    {
+        if(b&1)ans=ans*res%p;
+        res=res*res%p;
+        b>>=1;
+    }
+   // cout<<"ans%p=="<<ans%p<<endl;
+    return ans%p;
+
+}
+int main()
+{
+    int z,m,h;
+    scanf("%d",&z);
+    while(z--)
+    {
+        scanf("%d%d",&m,&h);
+        ll sum=0;
+        while(h--)
+        {
+            int a,b;
+            scanf("%d%d",&a,&b);
+            sum = (sum+q_pow(a,b,m))%m;
+        }
+        printf("%d\n",sum);
+    }
+}
