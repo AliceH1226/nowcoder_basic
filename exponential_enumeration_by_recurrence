@@ -1,0 +1,30 @@
+//https://ac.nowcoder.com/acm/contest/998/A
+//https://ac.nowcoder.com/acm/problem/blogs/50911
+
+#include<iostream>
+using namespace std;
+
+int N;
+void dfs(int n, int state)
+{
+    if(n==N)
+    {
+        for(int i=0;i<n;i++)
+        {
+            if(state>>i&1)
+            {
+                cout<<i+1<<" ";
+            }
+        }
+        cout<<endl;
+        return;
+    }
+    dfs(n+1,state);
+    dfs(n+1,state|(1<<n));
+}
+int main()
+{
+
+    cin>>N;
+    dfs(0,0);
+}
