@@ -1,0 +1,40 @@
+//https://ac.nowcoder.com/acm/contest/998/C
+//https://ac.nowcoder.com/acm/problem/blogs/50919
+
+
+//字典序考虑深搜
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int N;
+vector<int> a;
+
+void dfs(int n,int state) {//state表示每一种状态，跟用bool值来表示的作用是一样的
+
+    if (N == n) {
+        for (auto i:a) 
+            cout << i << ' ';
+        cout << endl;
+        return ;
+    }
+
+    for (int i = 0; i < N; i++) {
+        if (!(state >> i & 1))
+        {
+            a.push_back(i + 1);
+            dfs(n + 1, state | (1 << i));
+            a.pop_back();
+        }
+    }
+
+    }
+
+int main() {
+    cin >> N;
+    dfs(0, 0);
+
+    return 0;
+}
