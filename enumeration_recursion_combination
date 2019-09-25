@@ -1,0 +1,34 @@
+//https://ac.nowcoder.com/acm/contest/998/B
+//https://ac.nowcoder.com/acm/problem/blogs/50918
+
+
+
+
+#include<iostream>
+
+using namespace std;
+
+int n, m;
+
+void dfs(int cur, int sum, int state) {//sum表示当前选了多少个数,state表示选和不选的一种状态
+
+    if (sum + n - cur < m) return;//递归出口1， 没有符合条件的，1 2 3 4 5 选了？5 这两个数，sum=2,n=5,cur=5 左端等于2,小于m=3,不符合，返回
+
+    if (sum == m) {//符合条件，够了m个了，准备输出
+
+        for (int i = 0; i < n; i++)
+            if (state >> i & 1)
+                cout << i + 1 << " ";
+
+        cout << endl;
+        return;//递归出口2，有符合条件的
+    }
+    dfs(cur + 1, sum + 1, state | (1 << cur));//选了cur
+    dfs(cur + 1, sum, state);//没选cur
+}
+int main() {
+    cin >> n >> m;
+    dfs(0, 0, 0);
+    return 0;
+
+}
