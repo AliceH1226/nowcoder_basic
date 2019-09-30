@@ -1,0 +1,70 @@
+//https://ac.nowcoder.com/acm/contest/998/D
+//https://blog.csdn.net/ssl_zyc/article/details/81623774
+
+
+
+#include<bits/stdc++.h>
+ 
+using namespace std;
+const int N=7;
+int G[N][N];
+int l[N][N];
+int cnt,minCount;
+ 
+void click(int r,int c){//row, colunm, up, down, left, right, reverse
+    cnt ++;
+    l[r][c]^=1;
+    l[r-1][c]^=1;
+    l[r+1][c]^=1;
+    l[r][c-1]^=1;
+    l[r][c+1]^=1;
+}
+ 
+void copyGraph(){
+    for(int i=1;i<=5;i++)
+        for(int j=1;j<=5;j++)
+            l[i][j]=G[i][j];
+}
+ 
+int work(){
+    minCount=26;
+    for(int i=0;i<32;i++){//five blanks, 0 or 1, all posibilities, 0~31, base 2 bit
+        cnt=0;
+        copyGraph();
+        for(int k=1;k<=5;k++){//resolve first line only
+            if(i&1<<(k-1)){//calculate from right to left
+                click(1,k);
+            }
+        }
+        if(cnt>6)continue;
+        for(int j=1;j<=4;j++){//check the first four lines, no need the fifth line
+            for(int k=1;k<=5;k++){
+                if(!l[j][k]){//if it is off, resolve the next line
+                    click(j+1,k);
+                    if(cnt>6)break;
+                }
+            }
+        }
+        for(int k=1;k<=5;k++){//check the fifth line
+            if(!l[5][k])cnt=10;
+        }
+        minCount=min(minCount,cnt);
+    }
+    return minCount>6?-1:minCount;
+}
+ 
+void getGraph(){
+    for(int i=1;i<=5;i++)
+        for(int j=1;j<=5;j++)
+            scanf("%1d",&G[i][j]);
+}
+ 
+int main(){
+    int T;
+    cin>>T;
+    while(T--){
+        getGraph();
+        cout<<work()<<endl;
+    }
+    return 0;
+}
