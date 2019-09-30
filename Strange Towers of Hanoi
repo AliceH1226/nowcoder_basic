@@ -1,0 +1,47 @@
+//https://ac.nowcoder.com/acm/contest/998/E
+//https://ac.nowcoder.com/acm/problem/blogs/50920
+
+
+
+
+
+#include<iostream>
+#define inf 0x3f3f3f3f
+using namespace std;
+int d[15];
+int f[15];
+
+void dd()
+{
+
+    for(int i=1;i<=12;i++)
+    {
+        d[i]=d[i-1]*2+1;
+
+    }
+}
+
+void ff(int d[])
+{
+
+    f[1]=1;
+    cout<<f[1]<<endl;
+    for(int i=2;i<=12;i++)
+    {
+        f[i]=f[1]*2+d[i-1];
+        for(int j=2;j<=i;j++)
+        {
+            f[i]=min(f[i],f[j]*2+d[i-j]);
+        }
+        cout<<f[i]<<endl;
+    }
+
+}
+int main()
+{
+
+
+    dd();
+    ff(d);
+
+}
