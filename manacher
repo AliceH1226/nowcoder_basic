@@ -1,0 +1,40 @@
+
+
+
+//https://ac.nowcoder.com/acm/contest/549/B
+//https://ac.nowcoder.com/acm/contest/view-submission?submissionId=41348979
+//https://en.wikipedia.org/wiki/Longest_palindromic_substring
+
+#include<bits/stdc++.h>
+using namespace std;
+
+const int maxn=100100;//if one zero missing->array out of range
+int ans,P[maxn];
+string s;
+
+int manacher(string s)
+{
+    string t;
+    int len=s.size();
+    t+='@';t+='#';
+    for(int i=0;i<len;i++)t+=s[i],t+='#';
+    t+='$';
+    int R=0,C=0,ans=0;len=t.size();
+    for(int i=1;i<=len-2;i++)
+    {
+        P[i]=R>i?min(P[2*C-i],R-i):1;
+        while(t[i+P[i]]==t[i-P[i]])P[i]++;
+        if(i+P[i]>R)R=i+P[i],C=i;
+        ans=max(ans,P[i]-1);
+    }
+    return ans;
+}
+
+int main()
+{
+    cin>>s;
+    int len=s.size();
+    s+=s;
+    printf("%d\n",min(len,manacher(s)));
+
+}
