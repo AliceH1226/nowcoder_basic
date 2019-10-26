@@ -1,0 +1,45 @@
+//https://ac.nowcoder.com/acm/contest/549/C
+//https://blog.csdn.net/weixin_41183791/article/details/89297975
+
+
+
+#include<iostream>
+#include<stdio.h>
+#include<algorithm>
+#include<cmath>
+typedef long long ll;
+using namespace std;
+
+const int maxn=33;
+ll dp[maxn][123];
+
+
+
+ll gcd(ll a,ll b){return b==0?a:gcd(b,a%b);}
+int main()
+{
+    int n;
+    cin>>n;
+    dp[0][0]=1;
+    for(int i=1;i<=n;i++)
+    {
+        for(int j=i;j<=i*4;j++)
+        {
+            if(j-1>=0)dp[i][j]+=dp[i-1][j-1];
+            if(j-2>=0)dp[i][j]+=dp[i-1][j-2];
+            if(j-3>=0)dp[i][j]+=dp[i-1][j-3];
+            if(j-4>=0)dp[i][j]+=dp[i-1][j-4];
+        }
+    }
+    ll a=0;
+    for(int i=3*n;i<=123;i++)a+=dp[n][i];
+
+    ll b=pow(4,n);
+
+
+    ll c=a/gcd(a,b);
+    ll d=b/gcd(a,b);
+
+
+    printf("%lld/%lld\n",c,d);
+}
