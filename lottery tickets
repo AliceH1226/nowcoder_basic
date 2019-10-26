@@ -15,13 +15,13 @@ ll dp[maxn][123];
 
 
 
-ll gcd(ll a,ll b){return b==0?a:gcd(b,a%b);}
+ll gcd(ll a,ll b){return b==0?a:gcd(b,a%b);}//parameter type ll, int error
 int main()
 {
     int n;
     cin>>n;
     dp[0][0]=1;
-    for(int i=1;i<=n;i++)
+    for(int i=1;i<=n;i++)//i_th round;j: accumulated award from round 1 to i  
     {
         for(int j=i;j<=i*4;j++)
         {
@@ -32,7 +32,7 @@ int main()
         }
     }
     ll a=0;
-    for(int i=3*n;i<=123;i++)a+=dp[n][i];
+    for(int i=3*n;i<=123;i++)a+=dp[n][i];//3*n is the cost to buy a lottery; 120 is the highest posibble award, 4*30
 
     ll b=pow(4,n);
 
@@ -41,5 +41,5 @@ int main()
     ll d=b/gcd(a,b);
 
 
-    printf("%lld/%lld\n",c,d);
+    printf("%lld/%lld\n",c,d);//%lld correct, %d incorrect
 }
