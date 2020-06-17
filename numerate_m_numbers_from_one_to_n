@@ -1,0 +1,35 @@
+#include <vector>
+#include <iostream>
+using namespace std;
+static const auto io_sync_off = []() {
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    return nullptr;
+}();
+
+int n, m;
+vector<int> nums;
+
+void infer(int cur)
+{
+    if (nums.size() > m || nums.size() + n - cur + 1 < m)//当前比m大返回，剩下的构不成m返回
+        return;
+    if (nums.size() == m)
+    {
+        for (int num : nums)
+            cout << num << " ";
+        cout << endl;
+        return;
+    }
+    nums.push_back(cur);
+    infer(cur + 1);
+    nums.pop_back();
+    infer(cur + 1);
+}
+
+int main()
+{
+    cin >> n >> m;
+    infer(1);
+    return 0;
+}
